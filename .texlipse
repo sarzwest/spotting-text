@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Tue Jul 14 21:04:47 CEST 2015
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=
+mainTexFile=jiricek.tex
+outputFile=jiricek.pdf
+langSpell=cs
+markDer=true
+srcDir=
