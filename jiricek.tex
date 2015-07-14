@@ -7,16 +7,20 @@
 \usepackage[hidelinks]{hyperref}
 
 \title{Aplikace Spotting pro OS Android}
-\author{Milan Jiříček}
+\author{Milan Jiříček} 
 \year{2015}
 \docinfo{Milan Jiříček}{Aplikace Spotting pro OS Android}
 
 \annotation{
-	Práce se zabývá vývojem aplikace pro systém Android, která umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. Pomocí ní můžeme vkládat fotky tzv. spotů a skateparků a tato místa vyhledávat a prohlížet podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Aplikace dále umožňuje zobrazení vybraných míst na mapě a je zveřejněna pomocí služby Google Play.
+	Práce se zabývá vývojem aplikace pro systém Android, která umožní uživatelům
+	vyhledání míst pro skateboardery, bikery a bruslaře. Pomocí ní lze vkládat
+	fotky tzv. spotů a skateparků a tato místa vyhledávat a prohlížet podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Aplikace dále umožňuje zobrazení vybraných míst na mapě a je zveřejněna pomocí služby Google Play.
 }
 
 \thanks{
-Děkuji vedoucímu bakalářské práce panu Mgr. Jiřímu Zacpalovi, Ph.D. za konzultace a odborné vedení. Dále bych chtěl poděkovat rodině za jejich podporu při studii.
+Děkuji vedoucímu bakalářské práce panu Mgr. Jiřímu Zacpalovi, Ph.D. za
+konzultace a odborné vedení. Dále bych chtěl poděkovat rodině za jejich podporu
+při studiích.
 }
       
 \makeindex
@@ -27,13 +31,28 @@ Děkuji vedoucímu bakalářské práce panu Mgr. Jiřímu Zacpalovi, Ph.D. za k
 \newpage
 
 \section{Úvod}
-Cílem mé bakalářské práce je mobilní aplikace pro platformu Android, která umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. S rostoucím počtem chytrých telefonů, jsou dnes již tyto přístroje dostupné prakticky komukoliv. Díky tomuto mohou aplikace vytvořené pro tyto telefony ulehčit každodenní činnosti a život bez nich si už neumíme představit.
+Cílem bakalářské práce je tvorba mobilní aplikace pro platformu Android, která
+umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. S rostoucím počtem chytrých telefonů, jsou dnes již tyto přístroje dostupné prakticky komukoliv. Díky tomu mohou aplikace vytvořené pro tyto telefony ulehčit každodenní činnosti a život bez nich si už neumíme představit.
 
 V dnešní době patří mezi nejrozšířenější operační systémy pro chytré telefony Android, iOS a Windows Phone.
 
-Jak jsem již psal, zvolil jsem si pro vývoj své aplikace systém Android od společnosti Google. Jedním z důvodů je, že je nejrozšířenejší na trhu, kdy za celý rok 2014 se prodala více než miliarda zařízení s tímto operačním systémem. Další z důvodů je, že telefon s daným systémem vlastním a mám s ním nejvetší zkušenosti. V neposlední řadě jsou aplikace vyvíjeny v programovacím jazyce Java, který je mi velice blízký.
+Jak je již psáno, pro vývoj aplikace byla zvolena platforma operačního systému
+Android od společnosti Google. Jedním z kritérií pro volbu OS Android je jeho
+rozšířenost na trhu, kdy za celý rok 2014 se prodala více
+než miliarda zařízení s tímto operačním systémem. Dalším z důvodů je osobní
+vlastnictví mobilního zařízení s tímto systémem a několikaletá
+zkušenost s každodenním užíváním.
+V neposlední řadě jsou aplikace pro Android vyvíjeny v programovacím jazyce
+Java, který je mi velice blízký.
 
-Aplikace, kterou jsem pojmenoval Spotting na vyhledání, přidání a prohlížení míst (tzv.spotů). To znamená zobrazovat místa určené zeměpisnými souřadnicemi na mapě, vkládat místa tzn. Jejich vyfotografování či výběru snímku z galerie a jejich otagováním, ale také vyhledávat a prohlížet podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Podrobněji funkce aplikace popíši v praktické části bakalářské práce.
+Aplikace, která je pojmenována Spotting, bude sloužit pro vyhledání, přidání a
+prohlížení míst (tzv.spotů). Spoty bude možno zobrazovat jako místa určená
+zeměpisnými souřadnicemi na mapě. Ke spotům bude možno vkládat jejich
+fotografie, které budou moci být otagovány. Aplikace bude obsahovat funkce
+pro vyhledávání a prohlížení spotů  podle různých
+filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů.
+Podrobnější funkce aplikace jsou popsány v praktické části bakalářské
+práce.
 \newpage
 
 \section{Platforma Android}
