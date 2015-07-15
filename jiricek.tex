@@ -7,20 +7,16 @@
 \usepackage[hidelinks]{hyperref}
 
 \title{Aplikace Spotting pro OS Android}
-\author{Milan Jiříček} 
+\author{Milan Jiříček}
 \year{2015}
 \docinfo{Milan Jiříček}{Aplikace Spotting pro OS Android}
 
 \annotation{
-	Práce se zabývá vývojem aplikace pro systém Android, která umožní uživatelům
-	vyhledání míst pro skateboardery, bikery a bruslaře. Pomocí ní lze vkládat
-	fotky tzv. spotů a skateparků a tato místa vyhledávat a prohlížet podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Aplikace dále umožňuje zobrazení vybraných míst na mapě a je zveřejněna pomocí služby Google Play.
+	Práce se zabývá vývojem aplikace pro systém Android, která umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. Pomocí ní lze vkládat fotky tzv. spotů a skateparků a tato místa vyhledávat a prohlížet podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Aplikace dále umožňuje zobrazení vybraných míst na mapě a je zveřejněna pomocí služby Google Play.
 }
 
 \thanks{
-Děkuji vedoucímu bakalářské práce panu Mgr. Jiřímu Zacpalovi, Ph.D. za
-konzultace a odborné vedení. Dále bych chtěl poděkovat rodině za jejich podporu
-při studiích.
+Děkuji vedoucímu bakalářské práce panu Mgr. Jiřímu Zacpalovi, Ph.D. za konzultace a odborné vedení. Dále bych chtěl poděkovat rodině za jejich podporu při studiích.
 }
       
 \makeindex
@@ -31,28 +27,13 @@ při studiích.
 \newpage
 
 \section{Úvod}
-Cílem bakalářské práce je tvorba mobilní aplikace pro platformu Android, která
-umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. S rostoucím počtem chytrých telefonů, jsou dnes již tyto přístroje dostupné prakticky komukoliv. Díky tomu mohou aplikace vytvořené pro tyto telefony ulehčit každodenní činnosti a život bez nich si už neumíme představit.
+Cílem mé bakalářské práce je mobilní aplikace pro platformu Android, která umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře. S rostoucím počtem chytrých telefonů, jsou dnes již tyto přístroje dostupné prakticky komukoliv. Díky tomu mohou aplikace vytvořené pro tyto telefony ulehčit každodenní činnosti a život bez nich si už neumíme představit.
 
 V dnešní době patří mezi nejrozšířenější operační systémy pro chytré telefony Android, iOS a Windows Phone.
 
-Jak je již psáno, pro vývoj aplikace byla zvolena platforma operačního systému
-Android od společnosti Google. Jedním z kritérií pro volbu OS Android je jeho
-rozšířenost na trhu, kdy za celý rok 2014 se prodala více
-než miliarda zařízení s tímto operačním systémem. Dalším z důvodů je osobní
-vlastnictví mobilního zařízení s tímto systémem a několikaletá
-zkušenost s každodenním užíváním.
-V neposlední řadě jsou aplikace pro Android vyvíjeny v programovacím jazyce
-Java, který je mi velice blízký.
+Jak je již psáno, pro vývoj aplikace byla zvolena platforma operačního systému Android od společnosti Google. Jedním z kritérií pro volbu OS Android je jeho rozšířenost na trhu, kdy za celý rok 2014 se prodala více než miliarda zařízení s tímto operačním systémem. Dalším z důvodů je osobní vlastnictví mobilního zařízení s tímto systémem a několikaletá zkušenost s každodenním užíváním. V neposlední řadě jsou aplikace pro Android vyvíjeny v programovacím jazyce Java, který je mi velice blízký.
 
-Aplikace, která je pojmenována Spotting, bude sloužit pro vyhledání, přidání a
-prohlížení míst (tzv.spotů). Spoty bude možno zobrazovat jako místa určená
-zeměpisnými souřadnicemi na mapě. Ke spotům bude možno vkládat jejich
-fotografie, které budou moci být otagovány. Aplikace bude obsahovat funkce
-pro vyhledávání a prohlížení spotů  podle různých
-filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů.
-Podrobnější funkce aplikace jsou popsány v praktické části bakalářské
-práce.
+Aplikace, která je pojmenována Spotting, bude sloužit pro vyhledání, přidání a prohlížení míst (tzv.spotů). Spoty bude možno zobrazovat jako místa určená zeměpisnými souřadnicemi na mapě. Ke spotům bude možno vkládat jejich fotografie, které budou moci být otagovány. Aplikace bude obsahovat funkce pro vyhledávání a prohlížení spotů  podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Podrobnější funkce aplikace jsou popsány v praktické části bakalářské práce.
 \newpage
 
 \section{Platforma Android}
@@ -290,13 +271,22 @@ Aktivity a poskytovatelé obsahu jsou entity s krátkou životností, které lze
 \subsection{Přijímače}
 Komponenta odvozená od třídy android.app.BroadcastReceiver slouží k naslouchání oznámení. Poté umožňuje reagovat aplikaci na nějakou událost, která nemusela vzniknout v rámci aplikace, ale mohla vzniknout systémem nebo jinou aplikací. Příkladem může být oznámení o příchodu sms zprávy.
 
-\section{Analýza a návrh aplikace}
-V této části se budu zabývat programátorskými aspekty práce. Zaměřuje se na architekturu aplikace, dále popisuje knihovny použité při tvorbě aplikace.
+\section{Návrh aplikace}
+%V této části se budu zabývat programátorskými aspekty práce. Zaměřuje se na architekturu aplikace, dále popisuje knihovny použité při tvorbě aplikace.
+V této části se budu zabývat návrhem aplikace, která mi poskytne následné informace k samotné implementaci. Zaměřuji se na popis diagramu případu užití, návrhu architektury a popisu použitých knihoven.
+\subsection{Diagram případů užití}
+Diagram případu užití znázorněn na obr. \ref{diagram} popisuje funkční požadavky na
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.5]{images/spotting-diagram.png}}
+\caption{Diagram případů užití aplikace.} \label{diagram}
+\end{figure}
+systém. Zobrazuje jednotlivé případy užití, které nám znázorňují interakce mezi uživatelem  aplikace a aplikací samotnou.
+%http://dspace.upce.cz/bitstream/10195/53642/2/ZamazalJ_NavrhAplikace_JP_2013.pdf
 \subsection{Architektura aplikace}
 Součástí systému je serverová část a klientská android aplikace komunikující s tímto serverem. Komunikace mezi android klientem a serverem je skrz REST\footnote[9]{Representational State Transfer - architektura webových aplikací, která nám umožňuje přistupovat k datům.} služby. Jako datové úložiště je zvoleno MySQL.
 
-Využívám tedy třívrstvé architektury,  kdy je aplikace rozdělena na to co uživatel vidí a na to, co se odehrává na pozadí na straně serveru.
- 
+Využívám tedy třívrstvé architektury, kdy je aplikace rozdělena na to co uživatel vidí a na to, co se odehrává na pozadí na straně serveru.
+
 Vrstvy architektury:
 \begin{itemize}
 \item Prezentační vrstva - Klientská mobilní aplikace pro platformu Android.
@@ -304,15 +294,23 @@ Vrstvy architektury:
 \item Datová vrstva - Její úlohou je ukládání dat do perzistentního uložiště. V mém systému, jak jsem již zmiňoval byla zvolena relační databáze MySQL.
 \end{itemize}
 Výhodou zvolené architektury je rozdělení výkonu mezi zařízení uživatele a serveru. Díky tomuto může běžet i v low-end zařízeních.
-
 \subsection{Použité knihovny}
 Při vývoji byla použita i řada externích knihoven, které si v této kapitole rozebereme.
 \subsubsection{Volley}
 Je knihovna vyvíjená společností Google, která slouží pro snadnější a hlavně rychlejší používání síťových požadavků. Mezi její výhody patří automatické plánování síťových požadavků, umožnění více souběžných připojení k síti, poskytnutí paměťového cachování a také umožňuje zrušit pouze jednu nebo všechny žádosti.
 
-Její nevýhodou je, že nedokáže stahovat větší soubory, z důvodu, že drží všechny odpovědi v paměti.\cite{volley}
+Její nevýhodou je, že nedokáže stahovat větší soubory, z důvodu, že udržuje všechny odpovědi v paměti.\cite{volley}
 \subsubsection{Google Play Services}
+Google Play Services je soubor služeb, jejichž hlavním účelem je ulehčení práce vývojářům. V této aplikaci využívám služby pro získání polohy od nejlepšího poskytovatele a přístup k Google Maps.
 
+Jestliže knihovna Google Play Services není nainstalována na zařízení, tak služby na daném zařízení nebudou fungovat.\cite{services}
+
+
+Další použité knihovny (httpclient-4.3.6, httpcore-4.3.3, httpmime-4.3.6) viz. kapitola \ref{knihovny}
+\section{Impplementace}
+\subsection{Odeslání souboru}
+\label{knihovny}
+%http://is.muni.cz/th/374489/fi_b/BakalarskaPraca.pdf
 \newpage
 \begin{thebibliography}{1} %při použití psát \cite{vobecky} apod
 \bibitem{historie} Google Buys Android for Its Mobile Arsenal. In: \emph{Businessweek - Business News, Stock market \& Financial Advice} [online]. 16. 8. 2005 [cit. 2. 4. 2015]. Dostupné
@@ -335,6 +333,10 @@ z: \url{http://www.bloomberg.com/bw/stories/2005-08-16/google-buys-android-for-i
 \bibitem{volley} Google Inc. Volley library In: \emph{Android Developers}
 [Online]. 2015 [Citace: 14. 7. 2015]. Dostupné z:
 \url{https://developer.android.com/training/volley/index.html}
+
+\bibitem{services} Google Inc. Google Play Services In: \emph{Android Developers}
+[Online]. 2015 [Citace: 14. 7. 2015]. Dostupné z:
+\url{https://developers.google.com/android/guides/overview#the_google_play_services_client_library}
 \end{thebibliography}
 \end{document}
 
