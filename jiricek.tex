@@ -35,7 +35,22 @@ Jak je již psáno, pro vývoj aplikace byla zvolena platforma operačního syst
 
 Aplikace, která je pojmenována Spotting, bude sloužit pro vyhledání, přidání a prohlížení míst (tzv.spotů). Spoty bude možno zobrazovat jako místa určená zeměpisnými souřadnicemi na mapě. Ke spotům bude možno vkládat jejich fotografie, které budou moci být otagovány. Aplikace bude obsahovat funkce pro vyhledávání a prohlížení spotů  podle různých filtrů, jako je vyhledávání podle aktuální polohy, druhu sportu a dalších aspektů. Podrobnější funkce aplikace jsou popsány v praktické části bakalářské práce.
 \newpage
+\section{Přehled již existujících řešení}
+Před výběrem bakalářské práce bylo nutné zjistit, jestli již
+neexistují podobné aplikace. Vybrané aplikace byly staženy z Google Play a poté nainstalovány a zkoušeny na mobilním telefonu HTC Evo 3D s verzí OS Android 4.0.3.
+\begin{itemize}
+\item Instagram - Jako první zmiňuji právě Instagram a to z důvodu, že má klientská aplikace využije filosofie designu v současné době této populární aplikace. Ta umožňuje svým uživatelům sdílení fotografií. Formát fotografie je odlišný a pořízené snímky jsou ve čtvercovém formátu. Budu využívat i podobné menu, které se  skládá z pěti tlačítek v dolní části obrazovky (viz. obr. \ref{insta}). Dané aplikace se budou od sebe odlišovat převažně ve funkčnosti.
 
+\item SkateSpots - Je tvořena dvěma částmi menu a pracovní plochou. Hlavní menu je koncipováno formou pěti ikonek ve spodní části displeje. První zleva je hlavní kanál, kde vidíme fotografie posledně nahraných spotů. Hned vedle vpravo se nachází tlačítko, které zobrazí mapu s vyznačenými spoty. Dále pro přidání spotu, kde po spuštění mi aplikace přestala pracovat na mobilním telefonu HTC Evo 3D, ale na jiným zařízení fungovalo bez problému. Poté se nachází seznam oblíbených a poslední zobrazí námi nahrané spoty. Z GUI\footnote[4]{Grafické uživatelské rozhraní.} nemám téměř co vytknout. V dané aplikaci mi převážně chybí rozsáhlejší vyhledávání míst podle důležitých aspektů např. do určité vzdálenosti, druhu místa a sportu, daného povrchu, obtížnosti atd. a poté zobrazení vyhledaných spotů, které si bude uživatel moct projít a vybrat si dle sebe.
+
+\item Tambalea Skate Spots - Po prvním spuštění se zobrazí mapa s vyznačenými spoty, nad ní je menu tzv. Tab bar skládající se ze 4 záložek. V dolní části se nachází tři tlačítka, které jsou nevkusně zvolené obrázky ložiska a skateboardu s popiskem. Za další záložkou se mapa nahradila seznamem spotů, které jsou řazeny pod sebou. Jeden řádek je rozvržen tak, že na levé straně je ikonka označující typ a vedle ní doplňující informace. Vyhledávání je zde velice obtížné. Chybí zde obrázek spotu, který u vyhledávání hraje jednu z nejvýznamnějších rolí. V dolní části obrazovky se nachází tlačítka pro filtrování seznamu spotů, která jsou opět nevkusně zvolena jako obrázky skateboardů. V další záložce pojmenovanné \uv{MY SPOTS}, by uživatel očekával pouze sebou nahrané, ale nachází se zde i tlačítko pro přidání, které by se hodilo spíše do horního menu. Při přidávání se musíme proklikat mapou pro získání polohy a až poté můžeme pokračovat. Zde mi chybí využití GPS modulu, který je integrovaný ve většině mobilních zařízení. V poslední záložce nastavení se můžeme odhlásit. Po znovu spuštění aplikace se musíme znovu přihlásit, což je velmi otravné.
+\end{itemize}
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.18]{images/instagram.png}}
+\caption{Úvodní obrazovka aplikace Instagram.} \label{insta}
+\end{figure}
+Analýza aplikací na trhu poukázala na některé nedostatky. K hlavním nedostatkům patří vzhled uživatelského rozhraní, který má rozhodující význam při výběru aplikace uživatele a následným používáním. Dále byly vynechány některé funkce, které by aplikace tohoto typu měla mít. Testování přineslo mnohá ponaučení při vývoji aplikace.
+\newpage
 \section{Platforma Android}
 Platforma Android je operační systém založený na Linuxovém jádru, která je v první řadě určená pro mobilní zařízení:
 \begin{itemize}
@@ -63,13 +78,13 @@ Architektura platformy Android se skládá z pěti vrstev a je znázorněna na o
 \end{figure}
 
 \begin{itemize}
-\item[Linuxové jádro] Nejnižší vrstvou architektury je jádro operačního systému, která zajišťuje komunikaci mezi hardwarem a softwarem. Základ tvoří ovladače, které zajišťují již zmiňovanou komunikaci. Dále poskytuje další základní služby jako jsou např.:
+\item Linuxové jádro - Nejnižší vrstvou architektury je jádro operačního systému, která zajišťuje komunikaci mezi hardwarem a softwarem. Základ tvoří ovladače, které zajišťují již zmiňovanou komunikaci. Dále poskytuje další základní služby jako jsou např.:
 \begin{itemize}
 \item správa paměti
 \item správa procesů
 \item správa napájení
 \end{itemize}
-\item[Knihovny] Nativní knihovny androidu jsou základními funkcemi. Obsahují např. 
+\item Knihovny - Nativní knihovny androidu jsou základními funkcemi. Obsahují např. 
 \begin{itemize}
 \item Open GL knihovnu pro práci s 3D grafikou.
 \item Open SGL pro práci s 2D grafikou.
@@ -78,15 +93,15 @@ Architektura platformy Android se skládá z pěti vrstev a je znázorněna na o
 \item FreeType vektorové a bitmapové vykreslování písma.
 \end{itemize}
 Tyto funkce jsou poskytnuty vývojářům za pomocí Android Application Framework.
-\item[Běhové prostředí Android] Vrstva slouží pro běh aplikací, které jsou psány v programovacím jazyce Java. Ty jsou poté přeloženy do Java byte kódu a následně do mezikódu za pomocí Dalvik kompilátoru. Výsledný byte kód je spuštěný na virtuálním stroji Dalvik. Je navržený tak, že každá aplikace je samotný proces s vlastní instancí virtuálního stroje. Jedním z důvodů, proč nebyl zvolený virtuální stroj (JVM), jsou licenční podmínky. Dalším z důvodů pro zavedení Dalvik byla optimalizace virtuálního stroje pro potřeby mobilních zařízení. Je zřejmé, že hlavní roli hrála úspora energie a především výkon.
+\item Běhové prostředí Android - Vrstva slouží pro běh aplikací, které jsou psány v programovacím jazyce Java. Ty jsou poté přeloženy do Java byte kódu a následně do mezikódu za pomocí Dalvik kompilátoru. Výsledný byte kód je spuštěný na virtuálním stroji Dalvik. Je navržený tak, že každá aplikace je samotný proces s vlastní instancí virtuálního stroje. Jedním z důvodů, proč nebyl zvolený virtuální stroj (JVM), jsou licenční podmínky. Dalším z důvodů pro zavedení Dalvik byla optimalizace virtuálního stroje pro potřeby mobilních zařízení. Je zřejmé, že hlavní roli hrála úspora energie a především výkon.
 Obsahem této vrstvy jsou i knihovny programovacího jazyka Java, ale také knihovny pro zařízení se systémem Android.
-\item[Aplikační rámec] Umožňuje přístup k různým službám, které vývojáři mohou používat ve svých aplikacích např.
+\item Aplikační rámec - Umožňuje přístup k různým službám, které vývojáři mohou používat ve svých aplikacích např.
 \begin{itemize}
 \item tvorba uživatelského rozhraní.
 \item používat hardware zařízení.
 \item spouštět jiné aplikace na pozadí.
 \end{itemize}
-\item[Aplikační vrstva] Je nejvyšší vrstva, v které jsou spuštěny samotné aplikace.
+\item Aplikační vrstva - Je nejvyšší vrstva, v které jsou spuštěny samotné aplikace.
 \end{itemize}
 \subsection{Volba úrovně API}
 Za dobu co je systém Android na trhu, vzniklo několik verzí právě tohoto OS. Zavedl se standart pro psaní programů pro konkrétní verzi systému tzv. úroveň API\footnote[2]{Reprezentuje celočíselnou hodnotu, která jednoznačně identifikuje verzi revize programového vybavení, který je poskytován prostřednictvím dané verze OS. Její hlavní roli je zajištění kompatibility mezi aplikacemi a přístroji, do kterých mají být nainstalovány.}. Proto je před vývojem aplikace velmi důležitá volba cílové verze systému android resp. volba úrovňe API. Může zde dojít k problému, kdy zvolíme příliš novou verzi. Tím můžeme přijít o potenciální zákazníky, kteří mohou naši aplikaci využívat.
@@ -97,22 +112,7 @@ Na základě těchto údajů se vývojář může rozhodnout, kterou úroveň AP
 \centerline{\includegraphics[scale=0.65]{images/version.png}}
 \caption{Údaje verzí Android přistupující do služby Google Play během sedmi dní k 2. 3. 2015\cite{volba}} \label{api}
 \end{figure}
-\subsection{Přehled již existujících řešení}
-Před výběrem bakalářské práce bylo nutné zjistit, jestli že
-neexistují podobné aplikace. Vybrané aplikace byly staženy z Google Play a poté nainstalovány a zkoušeny na mobilním telefonu HTC Evo 3D s verzí OS Android 4.0.3.
-\begin{itemize}
-\item[Instagram] Jako první zmiňuji právě Instagram a to z důvodu, že má klientská aplikace využije filosofie designu v současné době této populární aplikace. Ta umožňuje svým uživatelům sdílení fotografií. Formát fotografie je odlišný a pořízené snímky jsou ve čtvercovém formátu. Budu využívat i podobné menu, které se  skládá z pěti tlačítek v dolní části obrazovky (viz. obr. \ref{insta}). Dané aplikace se budou od sebe odlišovat převažně ve funkčnosti.
 
-\item[SkateSpots] Je tvořena dvěma částmi menu a pracovní plochou. Hlavní menu je koncipováno formou pěti ikonek ve spodní části displeje. První zleva je hlavní kanál, kde vidíme fotografie posledně nahraných spotů. Hned vedle vpravo se nachází tlačítko, které zobrazí mapu s vyznačenými spoty, dále pro přidání spotu, kde po spuštění mi aplikace přestala pracovat na mobilním telefonu HTC Evo 3D, ale na jiným zařízení fungovalo bez problému. Poté se nachází seznam oblíbených a poslední zobrazí námi nahrané spoty. Z GUI\footnote[4]{Grafické uživatelské rozhraní.} nemám téměř co vytknout. V dané aplikaci mi převážně chybí rozsáhlejší vyhledávání míst podle důležitých aspektů např. do určité vzdálenosti, druhu místa a sportu, daného povrchu, obtížnosti atd. a poté zobrazení vyhledaných spotů, které si bude uživatel moct projít a vybrat si dle sebe.
-
-\item[Tambalea Skate Spots] Po prvním spuštění se zobrazí mapa s vyznačenými spoty, nad ní je menu tzv. Tab bar skládající se ze 4 záložek. V dolní části se nachází tři tlačítka, které jsou nevkusně zvolené obrázky ložiska a skatebordu s popiskem. Za další záložkou se mapa nahradila seznamem spotů, které jsou řazeny pod sebou. Jeden řádek je rozvržen tak, že na levé straně je ikonka označující typ a vedle ní doplňující informace. Vyhledání je zde velice obtížné. Chybí zde obrázek spotu, který u vyhledání hraje jednu z nejvýznamnějších rolí. V dolní části obrazovky se nachází tlačítka pro filtrování seznamu spotů, která jsou opět nevkusně zvolena jako obrázky skateboardů. V další záložce pojmenovanné \uv{MY SPOTS}, by uživatel očekával pouze sebou nahrané, ale nachází se zde i tlačítko pro přidání, které by se hodilo spíše do horního menu. Při přidávání se musíme proklikat mapou pro získání polohy a až poté můžeme pokračovat. Zde mi chybí využití GPS modulu, který je integrovaný ve většině mobilních zařízení. V poslední záložce nastavení se můžeme odhlásit. Po znovu spuštění aplikace se musíme znovu přihlásit, což je velmi otravné.
-\end{itemize}
-\begin{figure}[ht]
-\centerline{\includegraphics[scale=0.18]{images/instagram.png}}
-\caption{Úvodní obrazovka aplikace Instagram.} \label{insta}
-\end{figure}
-\newpage
-Analýza aplikací na trhu poukázala na některé nedostatky. K hlavním nedostatkům patří vzhled uživatelského rozhraní, který má rozhodující význam při výběru aplikace uživatele a následným používáním. Dále byly vynechány některé funkce, které by aplikace tohoto typu měla mít. Testování přineslo mnohá ponaučení při vývoji aplikace.
 
 \newpage
 \section{Potřebné nástroje při vývoji aplikace}
@@ -169,11 +169,6 @@ Pro vývoj pro Android v Eclipse se musí doinstalovat plugin Android Developmen
 NetBeans IDE se také používá zejména pro programovací jazyk Java, ve kterém je i naprogramován a umožňuje programování i v jiných jazycích jako PHP, C++ a dalších.
 
 Pro vývoj pro NetBeans se také musí doinstalovat plugin NBAndroid\footnote[6]{Open source software distribuovaný pod Apache License 2.0.}. Tento plugin je neoficiální a není podporován společností Google. Na obrázku \ref{netbeans}, můžete vidět Netbeans IDE se spuštěným AVD a na levo od něj můžete vidět LogCat.
-\begin{figure}[ht]
-\centerline{\includegraphics[scale=0.35]{images/netbeans.png}}
-\caption{NetBeans IDE.} \label{netbeans}
-\end{figure}
-\newpage
 \subsubsection{Android Studio}
 Jako poslední zmiňuji Android Studio IDE, které je od prosince roku 2014 oficiálně podporováno společností Google. Jeho předchůdcem byl již zmiňovaný Eclipse v kombinaci s pluginem ADT	, jehož vývoj byl ukončen. Toto prostředí je založené na IntelliJ IDEA\footnote[7]{IDE pro programování v jazycích Java, Groovy a dalších.}.
 
@@ -188,10 +183,15 @@ Nyní kdybych si měl zvolit, bylo by to jednoznačně Android Studio a to z dů
 \item rychlost.
 \item menší spotřeba paměti.
 \end{itemize}
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.3]{images/netbeans.png}}
+\caption{NetBeans IDE.} \label{netbeans}
+\end{figure}
 \newpage
 \section{Základy vývoje Android aplikací}
 Aplikace pro Android sestávájí z několika komponent activities (aktivity), services (služby), content providers (poskytovatelé obsahu) a broadcast recievers (přijímače). Komponenty jsou deklarovány v souboru AndroidManifest.xml, který specifikuje celou aplikaci. Na základě tohoto souboru systém ví, co lze jak volat a jak může komponenta spolupracovat s okolím. V této sekci si popíšeme k čemu slouží a jejich životní cyklus, který určuje jak komponenta vzniká a zaníka. Informace jsou převzaty ze zdroje \cite{slozeni}.
 \subsection{Aktivity}
+\label{aktivity}
 V aplikaci reprezentují prezentační vrstvu. Káždá aktivita obvykle odpovídá jedné obrazovce aplikace. Slouží tedy jako hlavní prostředek pro interakci s uživatelem, i když je možné, aby neměly uživatelské rozhraní, ale v této práci se s tím nesetkáme. UI lze definovat dvěma způsoby:
 \begin{enumerate}
 \item v XML souboru.
@@ -229,6 +229,7 @@ Systém při přecházení mezi jednotlivými stavy volá callback metody. Živo
 \end{figure}
 \subsection{Intenty}
 Intenty jsou základními komunikačními prvky mezi jednotlivými komponentami aplikace. Je to tedy objekt třídy Intent, který slouží pro spuštění aktivity nebo služby a dokáže přenášete jednoduchá data mezi těmito komponentami. Rozdělujeme je na explicitní a implicitní:
+\newpage
 \begin{itemize}
 \item explicitní - Používají se ke spuštění jedné konkrétní aktivity. Systém přesně ví, jak reagovat.
 \definecolor{lightGrey}{RGB}{250,250,250}
@@ -270,7 +271,7 @@ Jak jsem zmiňoval výše, lze přes intenty posílat a přijímat menší množ
 Aktivity a poskytovatelé obsahu jsou entity s krátkou životností, které lze kdykoliv vypnout. Proto existují služby, které jsou navrženy tak, aby mohli provádět dlouhotrvající operace na pozadí. Služby neposkytují GUI a nejsou proto vázány na grafické rozhraní aplikace. Např. lze tedy přehrávat hudbu, i když aktivita, při které bylo spuštěno přehrávání, už byla ukončena.
 \subsection{Přijímače}
 Komponenta odvozená od třídy android.app.BroadcastReceiver slouží k naslouchání oznámení. Poté umožňuje reagovat aplikaci na nějakou událost, která nemusela vzniknout v rámci aplikace, ale mohla vzniknout systémem nebo jinou aplikací. Příkladem může být oznámení o příchodu sms zprávy.
-
+\newpage
 \section{Návrh aplikace}
 %V této části se budu zabývat programátorskými aspekty práce. Zaměřuje se na architekturu aplikace, dále popisuje knihovny použité při tvorbě aplikace.
 V této části se budu zabývat návrhem aplikace, která mi poskytne následné informace k samotné implementaci. Zaměřuji se na popis diagramu případu užití, návrhu architektury a popisu použitých knihoven.
@@ -281,7 +282,26 @@ Diagram případu užití znázorněn na obr. \ref{diagram} popisuje funkční p
 \caption{Diagram případů užití aplikace.} \label{diagram}
 \end{figure}
 systém. Zobrazuje jednotlivé případy užití, které nám znázorňují interakce mezi uživatelem  aplikace a aplikací samotnou.
-%http://dspace.upce.cz/bitstream/10195/53642/2/ZamazalJ_NavrhAplikace_JP_2013.pdf
+\begin{itemize}
+\item Přihlásit se - funkce na přihlášení do sytému, která se spustí při prvním spuštění, pokud uživatel jíž není přihlášen.
+\item Zaregistrovat se - funkce pro vytvoření účtu do systému.
+\item Zobrazit nahrané spoty uživatelů - zobrazení nahraných spotů probíhá automaticky po zapnutí aplikace, jestliže se uživatel již někdy přihlásil do systému.
+\item Aktualizovat spoty - po stisknutí aktualizovacího tlačítka se obnoví seznam nahraných spotů.
+\item Zobrazit spot na mapě - vyvolá novou aktivitu pro zobrazení spotu na mapě, kdy se přímo přiblíží pohled na vybraný spot.
+\item Zobrazit detail spotu - umožňuje zobrazit detailní popis po kliknutí na spot ze seznamu zobrazených.
+\item Spustit navigaci ke spotu - spuštění této funkce se vyvolá pomocí implicitního intentu, který převezme některá z aplikací pro navigaci.
+\item Zobrazit spoty na mapě - vyvolá novou aktivitu se zobrazenými skate spoty na mapě. Lze dále přepínat mezi spoty pro cyklisty a bruslaře.
+\item Přidat spot - tato funkce vyvolá novou aktivitu, kdy se spustí fotoaparát. Zde lze pořídit snímek dvojím způsobom a to vyfotografováním, nebo výběrem z galerie. Po pořízení snímku ve čtvercovém formátu se spustí nová aktivita se zobrazeným snímkem. Jestliže se nám pořízený snímek nepovedl můžeme se vrátit zpět pro znovu vytvoření, nebo pokračovat a spustit novou aktivitu pro otagování a nahrání vytvořeného spotu na server.
+\item Vyhledat spoty - tato funkce slouží pro vyhledávání, kdy zadáním určitých parametrů ji upřesníme např. zvolíme vzdálenost do 5km a zaškrtneme políčko skate, tím se nám vyvolá nová aktivita se seznamem skate spotů do dané vzdálenosti.
+\item Zobrazit mnou nahrané spoty - zobrazím v seznamu všechny uživatelem nahrané spoty.
+\item Odebrat spot - umožňuje po kliknutí na spot ze seznamu uživatelem nahraných jeho odstranění.
+\item Upravit spot - umožňuje po kliknutí na spot ze seznamu uživatelem nahraných změnit některé údaje.
+\item Odhlásit se - funkce na odhlášení ze systému.
+\end{itemize}
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.2]{images/spotting.png} \includegraphics[scale=0.2]{images/spotting2.png} \includegraphics[scale=0.2]{images/spotting3.png}}
+\caption{Obrazovka se seznamem spotů (vlevo), mapy se spoty (uprostřed) a pro vyhledávání (vpravo).} \label{screens}
+\end{figure}
 \subsection{Architektura aplikace}
 Součástí systému je serverová část a klientská android aplikace komunikující s tímto serverem. Komunikace mezi android klientem a serverem je skrz REST\footnote[9]{Representational State Transfer - architektura webových aplikací, která nám umožňuje přistupovat k datům.} služby. Jako datové úložiště je zvoleno MySQL.
 
@@ -297,6 +317,7 @@ Výhodou zvolené architektury je rozdělení výkonu mezi zařízení uživatel
 \subsection{Použité knihovny}
 Při vývoji byla použita i řada externích knihoven, které si v této kapitole rozebereme.
 \subsubsection{Volley}
+\label{volley}
 Je knihovna vyvíjená společností Google, která slouží pro snadnější a hlavně rychlejší používání síťových požadavků. Mezi její výhody patří automatické plánování síťových požadavků, umožnění více souběžných připojení k síti, poskytnutí paměťového cachování a také umožňuje zrušit pouze jednu nebo všechny žádosti.
 
 Její nevýhodou je, že nedokáže stahovat větší soubory, z důvodu, že udržuje všechny odpovědi v paměti.\cite{volley}
@@ -306,10 +327,128 @@ Google Play Services je soubor služeb, jejichž hlavním účelem je ulehčení
 Jestliže knihovna Google Play Services není nainstalována na zařízení, tak služby na daném zařízení nebudou fungovat.\cite{services}
 
 
-Další použité knihovny (httpclient-4.3.6, httpcore-4.3.3, httpmime-4.3.6) viz. kapitola \ref{knihovny}
-\section{Impplementace}
-\subsection{Odeslání souboru}
+Další použité knihovny (httpclient-4.3.6, httpcore-4.3.3, httpmime-4.3.6) využívané při odesílání dat s ukazatelem průběhu na server viz. kapitola \ref{knihovny}.
+\newpage
+\section{Implementace}
+V této části se budu zabývat programátorskými aspekty práce. Je zde popsána většina vytvořených tříd. Dále budu dělit třídy podle jejich typu.
+\subsection{Activity}
+O aktivitách jsem se již bavil v kapitole \ref{aktivity}, nyní si popíšeme jednotlivé aktivity použité v aplikaci.
+\subsubsection{Login}
+Přihlašovací obrazovka, pomocí které se lze přihlásit do systému. Aktivita \verb+Login+ obsahuje dvě tlačítka (pro přihlášení a pro přepnutí do aktivity \verb+Registration+ pro založení účtu) a formulář (pro vyplnění údajů uživatele). K přihlášení je potřeba internetového připojení, z důvodu uložení dat o uživateli v MySQL databázi na straně serveru. O výměnu dat mezi klientskou aplikací a databází se stará PHP skript \verb+logAndReg.php+. Jejím úkolem je dostat požadavek od klienta, provést dotazy na databázi a odeslat odpověď zpět klientovi.
+
+K síťovým požadavkům využívám knihovnu volley viz. \ref{volley}, která mi stahování dat ze serveru velice usnadňuje. Jinak bych musel např. stahovat data ve vlastním vlákně přes \verb+AsyncTask+. Po přijetí požadavku se vytvořené API připojí na databázi přes \verb+newConnection.php+ skript a zkontroluje, zda se předané údaje shodují s uživatelem v databázi a odešle za pomocí funkce \verb+json_encode+ klientovi odpověď zpět ve formátu JSON.
+\begin{lstlisting}[title=Ukázka odpovědi s chybovou zprávou]
+{
+   "error":true,
+   "error_msg":"Incorrect nick or password!"
+}
+\end{lstlisting}
+\begin{lstlisting}[title=Ukázka odpovědi s úspěšným přihlášením]
+{
+   "error":false,
+   "users_id":"157",
+   "user":{
+      "nick":"Majlant",
+      "email":"jir.mil@centrum.cz"
+   }
+}
+\end{lstlisting}
+
+Po úspěšném přihlášení se nastaví za pomocí \verb+Shared preferences+\footnote[10]{Uložiště, kam lze ukládat nějaká data.}, že je uživatel již přihlášen.  Práci s ní má na starosti třída \verb+SPManager+. Dále se uloží data o uživateli do lokální databáze SQLite a spustí se aktivita \verb+Spotting+. 
+
+Po znovu spuštění aplikace se již nemusíme přihlašovat. Funkce \verb+checkLogged();+ provede kontrolu stavu přihlášení i v tzv. offline režimu.
+\subsubsection{Registration}
+Registrační obrazovka, pomocí které lze založit účet do systému. Obsahuje dvě tlačítka (pro zaregistrování a přepnutí do aktivity \verb+Login+) a formulář (pro vyplnění údajů uživatele) skládající se ze čtyř \verb+EditTextů+.
+
+Registrace probíhá obdobně jako již bylo zmíněno u aktivity \verb+Login+. Před odesláním požadavku na server, se ale provede na straně klienta základní validace formuláře. Provede se kontrola vyplnění všech polí ve formuláři, validace e-mailu, kterou provádí funkce \verb+isValidEmail+, shody zadaných hesel a minimální délky hesla, která musí přesahovat délku pěti znaků.
+\subsubsection{Spotting}
+\verb+Spotting+ je hlavní aktivita obsahující pět záložek. Je to takový rozcestník funkcí aplikace.
+
+Po prvním spuštění je volána metoda \verb+getSpots+, která požádá server o šest posledně nahraných spotů uživatelů. Odpověď je opět ve formátu JSON viz. ukázka na konci kapitoli \ref{lst:json}, kterou má na starosti \verb+fileDownload.php+ skript. Metoda \verb+doResponseSpots+ zpracuje odpověď, vytvoří instanci třídy \verb+SpotLoadAdapter+ viz. třída \ref{SpotLoadAdapter} a ta se nastaví jako adaptér pro ListView\footnote[11]{Rozložení zobrazující rolující seznam položek.} \verb+spotsInListView+.
+\begin{lstlisting}[title=Ukázka odpovědi PHP skriptu fileDownload.php,
+label={lst:json}]
+[
+   {
+      "tag":"download",
+      "error":false,
+      "spot":{
+         "like":"false",
+         "my_rate":-1,
+         "img_name":"IMG_20150716_073244.jpg",
+         "user_name":"Jirka",
+         "spot_name":"test",
+         "type":"Park",
+         "surface":"Asphalt",
+         "bike":"true",
+         "roller":"false",
+         "skate":"false",
+         "description":"",
+         "latitude":"49.5902812",
+         "longitude":"17.2494468",
+         "number_rate":"0",
+         "date":"2015-07-16 07:33:20",
+         "rate":"0"
+      },
+      "spot_id":"241"
+   }
+]
+\end{lstlisting}
+\subsubsection{Map}
+\label{map}
+Aktivita \verb+Map+ znázorňující obrazovku s mapou. Pro přidání map do aplikace jsem využil \verb+Google Maps Android API+. Toto API automaticky obsluhuje přístup ke Google Maps serverům, stahování dat, rekce na gesta uživatele a zobrazení samotné mapy.\cite{maps}
+
+Mapa je zobrazena ve fragmentu třídy \verb+com.google.android.gms.maps.MapFragment+. Další funkcí mimo prosté zobrazení je možnost změny typu mapy na satelitní, normální či s terénem, kterou provádí metoda \verb+myClickHandler+. Dalším stěžejním bodem bylo přidání bodů (spotů) tzv. \verb+markery+ do mapy na zvolených místech a vytvoření informačního okna, které se zobrazí po kliknutí na kterýkoli z nich.
+Přidání se implementovalo jednoduchým voláním \verb+GooleMap.addMarker+. Pro vlastní informační okno byla potřeba vytvořit \verb+InfoWindowAdapter+ třídu, přepsat \verb+getInfoContents+, který poskytuje vlastní obsah a zavolat \verb+GooleMap.setInfoWindowAdapter+ pro nastavení vlastního \verb+InfoWindowAdapter+.
+
+Zobrazené spoty lze i filtrovat dle druhu sportu. Ke stahování informací o spotech je opět využita knihovna volley komunikující s \verb+downloadAllSpots.php+ skriptem.
+\subsubsection{MapSpot}
+Aktivita \verb+MapSpot+ znázorňující obrazovku s mapou a vyznačeným spotem na ní. Dále se s ní nebudu zabývat. Informace o ní jsou velice obdobné jako v kapitole \ref{map}.
+\subsubsection{CameraActivity}
+Aktivita \verb+CameraActivity+ znázorňující obrazovku vlastního fotoaparátu. Aktivita slouží k získání obrázku (spotu). K tomu slouží dva způsoby:
+\begin{itemize}
+\item Z galerie - Po vyběru této možnosti se uživatelovi naskytne možnost vybrat si obrázek již uložený v jeho zařízení. Při implementaci využívám implicitního \verb+Intentu+ viz. následující ukázka.
+\definecolor{lightGrey}{RGB}{250,250,250}
+
+\begin{lstlisting}[language=Java,
+title=Následujícím kódem použitý v aplikaci se vyvolá nabídka pro výběr snímku z galerie.,
+basicstyle=\ttfamily\small\color{black},
+commentstyle=\itshape,
+keywordstyle=\color{Blue},
+showstringspaces=false,
+frame=lines,
+backgroundcolor=\color{lightGrey}
+]
+Intent picPathIntent = new Intent(Intent.ACTION_PICK);
+picPathIntent.setType(getDataImageType());
+startActivityForResult(picPathIntent, SELECT_PHOTO);
+\end{lstlisting}
+Konstanta \verb+Intent.ACTION_PICK+ říká, že se jedná o požadavek pro získání adresy dat. Ty jsou reprezentované pomocí \verb+Uri+ třídy \verb+android.net.Uri+. Dále za pomocí \verb+setType+ bylo specifikováno, o jaký typ dat se jedná. Ke spuštění byla použita metoda \verb+startActivityForResult+ a je tedy zřejmé, že poté co nově spuštěná aktivita dokončí zadaný úkol, musí předat výsledek zpět (\verb+Uri+) rodičovské aktivitě. K tomu bylo ještě zapotřebí doimplementovat metodu \verb+onActivityResult+, pro zpracování výsledku. Z důvodu, že v aplikaci jsou využívány obrázky ve čtvercovém formátu, je po získání výsledku volána metoda \verb+performCrop+. V ní se nastaví parametr akce s názvem \verb+"com.android.camera.action.CROP"+ a další požadované parametry. Opět v metodě \verb+onActivityResult+ se získá výsledek, nyní akcí pro ořezání obrázku.
+\item Z kamery - Tato možnost umožní vyfotografování obrázku. Pro vytvoření vlastního fotoaparátu používám balíček \verb+android.hardware.Camera+, který obsahuje rozhraní pro jednotlivé kamery zažízení se systémem Android. Nyný již lze využívat novější \verb+android.hardware.camera2+ API, ale pouze pro úroveň API 21 a výše. Následně popíši některé základní kroky, které byly použity k vytvoření vlastního fotoaparátu. Nejdříve je získána instance objektu \verb+Camera+ metodou \verb+getCameraInstance()+. Poté byla vytvořena instance vlastní třídy \verb+CameraPreview+, která rozšiřuje \verb+SurfaceView+ a implemnetuje \verb+SurfaceHolder.Callback+ rozhraní. Tato třída umožňuje zobrazit náhled obrazu z fotoaparátu a za pomocí zpětných volání zachytit vytvoření a zrušení \verb+View+. Nyní připojíme oblast pro vykreslování k fotoaparátu metodou \verb+Camera.setPreviewDisplay()+ s parametrem instance třídy \verb+SurfaceHolder+. Nakonec byla potřeba zahájit zobrazování snímků z fotoaparátu metodou \verb+Camera.startPreview()+. Před pořízování snímků, bylo nutností nastavení jejich kvality. To se provádí přes objekt \verb+Camera+ v metodě \verb+setBestQualityCamera()+. Teď nám již nic nebrání v jejich pořízení. Načtení obrázků provádím pomocí metody \verb+Camera.takePicture()+. V aplikaci využívám snímky ve formátu JPEG, z toho důvodu implmentuji rozhraní \verb+Camera.PictureCallback+ pro příjem obrazových dat. Posledním stežejním je ořezání obrázku do čtvercového formátu a uvolnění kamery. Při vývoji první problematiky jsem se potýkal s problémem, kdy byla vyvolávána vyjímka \verb+java.lang.OutOfMemoryError+. Důvodem bylo, že zařízení se systémem Android mají omezené množství paměti pro každou aplikaci. Řešením problému bylo přidat do souboru manifest \verb+android:largeHeap="true"+ a tím byla navýšena přidělená paměť aplikace, která je pro práci s obrázkami téměř nutností. Nesmíme opomenout na uvolnění kamery, z důvodu, že je to zdroj, který je sdílený mezi aplikacemi. Uvolnění provádím metodou \verb+stopPreviewAndFreeCamera()+ implementovanou v třídě \verb+CameraPreview+.\cite{camera}
+\end{itemize}
+\subsubsection{ShowPhoto}
+\verb+ShowPhoto+ je aktivita znázorňující obrazovku s obrázkem pořízený v \verb+CameraActivity+. Je to takový prostředník mezi dvěmi aktivitami. Samotný obrázek je uložen na zařízení v externí paměti. Pro jeho získání je mezi aktivitami předávána cesta k souboru, která je specifikována absolutní cestou.
+\subsubsection{AddSpot}
 \label{knihovny}
+\verb+AddSpot+ slouží pro otagování a odesílání spotů na server. V této sekci se zabývám implementací získání geografických souřadnic (zeměpisná šířka/zeměpisná délka) a odesílání dat na server.
+\begin{itemize}
+\item Určení polohy - pro určení polohy lze využít dvě funkce, kdy souřadnice získáme pomocí:
+\begin{itemize}
+\item Zadáním adresy: pro získání zeměpisné šířky a délky z adresy využívám třídu \verb+Geocoder+ implementovanou v třídě \verb+LocationFromAddressDialog+ rozšiřující \verb+AlertDialog.Builder+. Tento proces je nazýván geokodování.\cite{geocoder}
+\item Poskytovatele polohy GPS a siťového poskytovatele: Android doporučuje využívat jejich nejnovější API zvané \verb+Google Play services location API+, které jsem se rozhodl i využívat. To nabízí snadnější a přesnější určování polohy. Říkají, že by měla být i snížená spotřeba baterie. Tyto služby jsou poskytované prostřednictvím Google Play sloužeb. API vyžaduje nejříve integrovat Google Play služby pomocí \verb+GoogleApiClient+. To provádím metodou \verb+buildGoogleApiClient()+ volanou v \verb+onCreate()+. Poté je připojena metodou \verb+connect()+ v \verb+onStart()+. Jenž je \verb+GoogleApiClient+ úspěšně připojen, tak v \verb+onConnected+ zaregistrujeme \verb+LocationListener+ pro aktualizaci polohy metodou \verb+startLocationUpdates()+. Odpojení je provedeno metodou \verb+disconnect()+ v \verb+onStop()+.\cite{location}
+\end{itemize}
+\item Odesílání dat na server - V této části se zabývám odesíláním binárních dat s ukazatelem průběhu na server. Ke komunikaci se server nevyužívám knihovnu volley jako doposud. Nehodí se pro odesílání větších souborů a nepodporuje ani ukazatel průběhu (progress bar). Pro odesílání využívám metody POST protokolu HTTP\footnote[12]{Protokol určený pro přenos HTML dokumentů mezi klientem a serverem.} z balíčku \verb+org.apache.http+. HTTP komunikace nelze provádět v UI vlákně aplikace. Pro tyto účely jsem rozšířil třídu \verb+Upload+, ve které je implementována veškerá logika komunikace o třídu \verb+AsyncTask+. Nyní již je veškerá komunikace prováděna na pozadí a nezasahuje do běhu UI vlákna. Samotná třída \verb+AsyncTask+ implementuje několik metod \verb+onPreExecute+, \verb+doInBackground+, \verb+onPostExecute+ a \verb+onProgressUpdate+. Odesílání se spustí v hlavním vlákně pomocí metody \verb+execute+ a zavolá se metoda \verb+onPreExecute+, v které se zobrazí ukazatel průběhu. Po zobrazení ukazatele průběhu se vykoná komunikace se serverem implementována v metodě \verb+uploadFile+, která je spustěná v \verb+doInBackground+. Po dokončení této metody se zavolá \verb+onPostExecute+. V ní se zruší ukazatel a spustí se aktivita se seznamem spotů. %Ještě se podrobněji podíváme, jak probíhala komunikace v \verb+doInBackground+. Nejdříve jsem si vytvořil instanci třídy \verb+DefaultHttpClient+. Vytvořil jsme nového klienta. Dále jsem vytvořil instanci třídy \verb+HttpPost+
+\end{itemize}
+\subsubsection{Search}
+Aktivita \verb+Search+ znázorňující obrazovku se seznamem spotů (\verb+ListView+) s nastaveným adaptérem \verb+SpotLoadAdapter+ viz. kapitola \ref{SpotLoadAdapter}. 
+\subsection{Adaptéry}
+Třída adaptér se využívá jako most mezi \verb+AdapterView+ (v této práci využívám \verb+ListView+) a daty, která dané \verb+View+ zobrazují. Stará se o vytváření jednotlivých položek \verb+View+ v seznamu, dle vlastního rozložení prvků. \cite{adapter}
+\subsubsection{SpotLoadAdapter}
+\label{SpotLoadAdapter}
+Pro vytvoření \verb+ListView+ se seznamem spotů, je vždy potřeba vytvořit instanci třídy \verb+SpotLoadAdapter+. Ta se stará o předání dat a jejich zobrazení v \verb+ListView+.
+
+\subsection{Dialogy}
+\section{Možná rozšíření}
+
 %http://is.muni.cz/th/374489/fi_b/BakalarskaPraca.pdf
 \newpage
 \begin{thebibliography}{1} %při použití psát \cite{vobecky} apod
@@ -337,6 +476,22 @@ z: \url{http://www.bloomberg.com/bw/stories/2005-08-16/google-buys-android-for-i
 \bibitem{services} Google Inc. Google Play Services In: \emph{Android Developers}
 [Online]. 2015 [Citace: 14. 7. 2015]. Dostupné z:
 \url{https://developers.google.com/android/guides/overview#the_google_play_services_client_library}
+
+\bibitem{adapter} Google Inc. Adapter In: \emph{Android Developers}
+[Online]. 2015 [Citace: 17. 5. 2015]. Dostupné z: \url{http://developer.android.com/reference/android/widget/Adapter.html}
+
+\bibitem{maps} Google Inc. Google Maps Android API v2 In: \emph{Android Developers}
+[Online]. 14. 7. 2015 [Citace: 19. 7. 2015]. Dostupné z: \url{https://developers.google.com/maps/documentation/android/intro}
+
+\bibitem{camera} Google Inc. Camera In: \emph{Android Developers}
+[Online]. 2015 [Citace: 20. 7. 2015]. Dostupné z: \url{http://developer.android.com/guide/topics/media/camera.html#considerations}
+
+\bibitem{geocoder} Google Inc. Geocoder In: \emph{Android Developers}
+[Online]. 17. 7. 2015 [Citace: 21. 7. 2015]. Dostupné z: \url{http://developer.android.com/reference/android/location/Geocoder.html}
+
+\bibitem{location} Google Inc. Google Play services location API In: \emph{Android Developers}
+[Online]. 2015 [Citace: 21. 7. 2015]. Dostupné z: \url{http://developer.android.com/training/location/index.html}
+
 \end{thebibliography}
 \end{document}
 
