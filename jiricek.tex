@@ -5,6 +5,7 @@
 \usepackage{listings}%zdrojove kody
 \usepackage[usenames,dvipsnames]{color}
 \usepackage[hidelinks]{hyperref}
+\definecolor{lightGrey}{RGB}{250,250,250}
 
 \title{Aplikace Spotting pro OS Android}
 \author{Milan Jiříček}
@@ -101,7 +102,7 @@ Obsahem této vrstvy jsou i knihovny programovacího jazyka Java, ale také knih
 \item používat hardware zařízení.
 \item spouštět jiné aplikace na pozadí.
 \end{itemize}
-\item Aplikační vrstva - Je nejvyšší vrstva, v které jsou spuštěny samotné aplikace.
+\item Aplikační vrstva - Je nejvyšší vrstva, ve které jsou spuštěny samotné aplikace.
 \end{itemize}
 \subsection{Volba úrovně API}
 Za dobu co je systém Android na trhu, vzniklo několik verzí právě tohoto OS. Zavedl se standart pro psaní programů pro konkrétní verzi systému tzv. úroveň API\footnote[2]{Reprezentuje celočíselnou hodnotu, která jednoznačně identifikuje verzi revize programového vybavení, který je poskytován prostřednictvím dané verze OS. Její hlavní roli je zajištění kompatibility mezi aplikacemi a přístroji, do kterých mají být nainstalovány.}. Proto je před vývojem aplikace velmi důležitá volba cílové verze systému android resp. volba úrovňe API. Může zde dojít k problému, kdy zvolíme příliš novou verzi. Tím můžeme přijít o potenciální zákazníky, kteří mohou naši aplikaci využívat.
@@ -116,7 +117,7 @@ Na základě těchto údajů se vývojář může rozhodnout, kterou úroveň AP
 
 \newpage
 \section{Potřebné nástroje při vývoji aplikace}
-Vývoj pro platformu Android může být různý. Nejčastěji se používá jazyk Java společně s XML a balíčkem vývojových nástrojů tzv. SDK. Lze využít i další možnost jako je Android NDK, což je balík pro vývoj v jazyce C/C++. My se budeme zabývat vývojem právě v jazyce Java, protože použití NDK, se má používat pouze v případě, pokud to není nezbytně nutné pro fungování aplikace.
+Vývoj pro platformu Android může být různý. Nejčastěji se používá jazyk Java společně s XML a balíčkem vývojových nástrojů tzv. SDK. Lze využít i další možnost jako je Android NDK, což je balík pro vývoj v jazyce C/C++. V této práci se zabývám vývojem právě v jazyce Java, protože použití NDK, se má pouze v případě, pokud to není nezbytně nutné pro fungování aplikace.
 \subsection{Java Development Kit}
 Java Development Kit (dále JDK) od firmy Oracle, je nezbytný pro vývoj v jazyce Java. Tvoří soubor základních knihoven a nástrojů. Základní součástí je Java Runtime Environment (dále JRE), který slouží pro spouštění aplikací i vývojových nástrojů a obsahuje virtuální stroj a sadu základních knihoven pro vývoj. Nástroje jsou k dispozici pro operační systémy  Linux, Mac OS X, Solaris a Windows.
 
@@ -158,7 +159,7 @@ Dalvik Debug Monitor Server (dále DDMS) je nástroj, který slouží k ladění
 \item a další.
 \end{itemize}
 \subsubsection{Draw 9-patch}
-Je editor pomocí kterého je možné vytvářet bitmapové obrázky, u kterých si lze nastavit body, které se budou při změně velikosti roztahovat. Využívá se např. při vytváření tlačítek, kdy lze jedno tlačítko použít s různými rozměry bez deformací.
+Draw 9-patch je editor, pomocí kterého je možné vytvářet bitmapové obrázky. Na nich lze nastavit body, které se budou při změně velikosti roztahovat. Využívá se např. při vytváření tlačítek, kdy lze jedno tlačítko použít s různými rozměry bez deformací.
 \subsection{Vývojové prostředí}
 Dalším krokem před vývojem je výběr vývojového prostředí (dále IDE). Tento krok je velice důležitý, protože kvalitní IDE nám může usnadnit práci při vývoji a zvýšit naši produktivitu.
 \subsubsection{Eclipse}
@@ -166,9 +167,9 @@ Jako první zmiňuji Eclipse IDE, které se používá zejména pro programovac�
 
 Pro vývoj pro Android v Eclipse se musí doinstalovat plugin Android Development Tools (dále ADT). Je to plugin, který poskytuje sadu nástrojů, které jsou integrovány s IDE. To nabízí přístup k mnoha funkcím. Dále poskytuje GUI přístup k mnoha z SDK nástrojů příkazového řádku, stejně jako nástroj pro návrh uživatelského rozhraní pro rapid prototyping, projektování a budování uživatelského rozhraní vaší aplikace. Toto IDE má jedinou výhodu vzhledem k Android Studiu a tou je podpora NDK. \cite{eclipse}
 \subsubsection{NetBeans}
-NetBeans IDE se také používá zejména pro programovací jazyk Java, ve kterém je i naprogramován a umožňuje programování i v jiných jazycích jako PHP, C++ a dalších.
+NetBeans IDE se stejně jako Eclipse používá zejména pro programovací jazyk Java, ve kterém je i naprogramován. Umožňuje programování i v jiných jazycích jako PHP, C++ a dalších.
 
-Pro vývoj pro NetBeans se také musí doinstalovat plugin NBAndroid\footnote[6]{Open source software distribuovaný pod Apache License 2.0.}. Tento plugin je neoficiální a není podporován společností Google. Na obrázku \ref{netbeans}, můžete vidět Netbeans IDE se spuštěným AVD a na levo od něj můžete vidět LogCat.
+Při použití NetBeans pro vývoj Android aplikace se také musí doinstalovat plugin NBAndroid\footnote[6]{Open source software distribuovaný pod Apache License 2.0.}. Tento plugin je neoficiální a není podporován společností Google. Na obrázku \ref{netbeans}, můžete vidět Netbeans IDE se spuštěným AVD a na levo od něj můžete vidět LogCat.
 \subsubsection{Android Studio}
 Jako poslední zmiňuji Android Studio IDE, které je od prosince roku 2014 oficiálně podporováno společností Google. Jeho předchůdcem byl již zmiňovaný Eclipse v kombinaci s pluginem ADT	, jehož vývoj byl ukončen. Toto prostředí je založené na IntelliJ IDEA\footnote[7]{IDE pro programování v jazycích Java, Groovy a dalších.}.
 
@@ -201,14 +202,16 @@ Tyto dva způsoby lze i kombinovat. Obvykle se definuje výchozí vzhled pomocí
 
 Aplikace většinou obsahují více aktivit, které jsou mezi sebou vázány a jedna z nich je určená jako hlavní. Ta se zobrazí ihned po spuštění aplikace. Aktivita může za pomocí záměrů mezi jednotlivými aktivitami přepínat a předávat data. Vždy, když začne nová aktivita, předchozí aktivita se zastaví a uloží do zásobníku, ale je možné se k ní vrátit za pomocí tlačítka zpět.
 \subsubsection{Životní cyklus aktivit}
-OS Android se nechází převážne na mobilních zařízeních, které trpí nedostatkem operační paměti. Je zřejmé, že některé aktivity jsou důležité a některé méně. Proto v důsledku nedostatku operační paměti je možné násilné ukončení aktivity z důvodu, kdy systém potřebuje uvolnit paměť jiné aktivitě. V této sekci si popíšeme životní cyklus aktivit tzn. popis stavů, ve kterých se může nacházet nebo událostí od jejího vzniku až po její ukončení.
+OS Android se nechází převážne na mobilních zařízeních, které trpí nedostatkem operační paměti. Je zřejmé, že některé aktivity jsou důležité a některé méně. Proto v důsledku nedostatku operační paměti je možné násilné ukončení aktivity. Hlavním důvodem je obvykle potřeba systému uvolnit paměť jiní aktivitě. V této sekci si popíšeme životní cyklus aktivit tzn. popis stavů, ve kterých se může nacházet nebo událostí od jejího vzniku až po její ukončení.
+%Hlavním důvodem je obvykle potřeba systému uvolnit paměť jiní aktivitě.
+%z důvodu, kdy systém potřebuje uvolnit paměť jiné aktivitě.
 
 Každá aktivita prochází vlastním životním cyklem a nachází se v jednom z následujích čtyř stavů:
 \begin{itemize}
 \item aktivní - Aktivita je spuštěna a běží v popředí.
 \item pozastavená - Aktivita je spuštěna, běží a je viditelná, ale uživatel s ní nemůže interagovat. To bývá způsobeno částečným překrytím aktivity jinou, která nezabírá celou obrazovku nebo je z části průhledná. Tato situace většinou nastane při zobrazení dialogového okna.
 \item zastavená - Aktivita je spuštěna, běží, ale není viditelná, je překryta jinými aktivitami. Nyní může být aktivita ukončena, pokud je potřeba uvolnit paměť.
-\item mrtvá - Aktivita nebyla spuštěna, nebo byla ukončena  násilně z důvodu nedostatku duspné paměti, nebo jí ukončil uživatel. Jestliže má být aktivita znovu spuštěna do popředí, je potřeba jí znovu vytvořit.
+\item mrtvá - Aktivita nebyla spuštěna, nebo byla ukončena  násilně z důvodu nedostatku dustupné paměti, nebo jí ukončil uživatel. Jestliže má být aktivita znovu spuštěna do popředí, je potřeba jí znovu vytvořit.
 \end{itemize}
 \subsubsection{Callback metody}
 Systém při přecházení mezi jednotlivými stavy volá callback metody. Životní cyklus aktivity a přecházení mezi stavy je znázorněno na obr. \ref{lifecycle}.
@@ -245,7 +248,7 @@ backgroundcolor=\color{lightGrey}
 ]
 Intent i = new Intent(context, CameraActivity.class);
 \end{lstlisting}
-\item implicitní - Používají se v případě, kdy je jasné co má být provedeno, ale není definované jak danou činnost provést, to necháme na systému.
+\item implicitní - Používají se v případě, kdy je jasné co má být provedeno, ale není definované jak danou činnost provést. To necháme na systému.
 \begin{lstlisting}[language=Java,
 title=Ukázka implicitního intentu.,
 basicstyle=\ttfamily\small\color{black},
@@ -313,7 +316,7 @@ Vrstvy architektury:
 \item Aplikační vrstva - Prostředník mezi prezentační a datovou vrstvou. Je tvořena PHP skripty společně s SQL příkazy, které běží na webovém serveru. Zvolil jsem free hostingový server Endora.cz, který splňoval nejlépe mé požadavky např. bezplatnou registraci domény III. řádu, bezplatný hosting a podporu MySQL databází.
 \item Datová vrstva - Její úlohou je ukládání dat do perzistentního uložiště. V mém systému, jak jsem již zmiňoval byla zvolena relační databáze MySQL.
 \end{itemize}
-Výhodou zvolené architektury je rozdělení výkonu mezi zařízení uživatele a serveru. Díky tomuto může běžet i v low-end zařízeních.
+Výhodou zvolené architektury je rozdělení výkonu mezi zařízení uživatele a serveru. Díky tomuto může aplikace běžet i v low-end zařízeních. Dále umožňuje nezávislé správy jednotlivých vrstev.
 \subsection{Použité knihovny}
 Při vývoji byla použita i řada externích knihoven, které si v této kapitole rozebereme.
 \subsubsection{Volley}
@@ -356,7 +359,7 @@ K síťovým požadavkům využívám knihovnu volley viz. \ref{volley}, která 
 
 Po úspěšném přihlášení se nastaví za pomocí \verb+Shared preferences+\footnote[10]{Uložiště, kam lze ukládat nějaká data.}, že je uživatel již přihlášen.  Práci s ní má na starosti třída \verb+SPManager+. Dále se uloží data o uživateli do lokální databáze SQLite a spustí se aktivita \verb+Spotting+. 
 
-Po znovu spuštění aplikace se již nemusíme přihlašovat. Funkce \verb+checkLogged();+ provede kontrolu stavu přihlášení i v tzv. offline režimu.
+Po znovu spuštění aplikace se již nemusíme přihlašovat. Funkce \verb+checkLogged+ provede kontrolu stavu přihlášení i v tzv. offline režimu.
 \subsubsection{Registration}
 Registrační obrazovka, pomocí které lze založit účet do systému. Obsahuje dvě tlačítka (pro zaregistrování a přepnutí do aktivity \verb+Login+) a formulář (pro vyplnění údajů uživatele) skládající se ze čtyř \verb+EditTextů+.
 
@@ -364,7 +367,10 @@ Registrace probíhá obdobně jako již bylo zmíněno u aktivity \verb+Login+. 
 \subsubsection{Spotting}
 \verb+Spotting+ je hlavní aktivita obsahující pět záložek. Je to takový rozcestník funkcí aplikace.
 
-Po prvním spuštění je volána metoda \verb+getSpots+, která požádá server o šest posledně nahraných spotů uživatelů. Odpověď je opět ve formátu JSON viz. ukázka na konci kapitoli \ref{lst:json}, kterou má na starosti \verb+fileDownload.php+ skript. Metoda \verb+doResponseSpots+ zpracuje odpověď, vytvoří instanci třídy \verb+SpotLoadAdapter+ viz. třída \ref{SpotLoadAdapter} a ta se nastaví jako adaptér pro ListView\footnote[11]{Rozložení zobrazující rolující seznam položek.} \verb+spotsInListView+.
+Po prvním spuštění je volána metoda \verb+getSpots+, která požádá server o šest posledně nahraných spotů uživatelů. Odpověď je opět ve formátu JSON viz. ukázka na konci kapitoli \ref{lst:json}. Tu má na starosti \verb+fileDownload.php+ skript. Metoda \verb+doResponseSpots+ zpracuje odpověď, vytvoří instanci třídy \verb+SpotLoadAdapter+ viz. třída \ref{SpotLoadAdapter} a ta se nastaví jako adaptér pro ListView\footnote[11]{Rozložení zobrazující rolující seznam položek.} \verb+spotsInListView+. Poté je zobrazen seznam spotů, které můžeme procházet rolováním.
+
+Další funkcí implementovanou v této třídě je vyhledávání. Komunikace se serverem je prováděna v metodě \verb+searchSpots+. Ta probíhá obdobně jako v předchozím odstavci. Jen se provádí se \verb+searchSpots.php+ skriptem. Pro prohledávání textů v MySQL databázi využívám jednoduchého operátoru LIKE. Umožňuje vyhledávat řetězce jen dle části textu. Lze i vyhledávat do určité vzdálenosti. K tomu využívám Haversinův vzorec. Ten dokáže mezi dvěma body na zeměkouli dané zeměpisnou délkou a šířkou vypočítat jejich vzdálenost.\cite{haversine} Výše popsaná problematika je implementovaná ve funkci \verb+getSpotsByUser+. Ta najde záznamy v tabulce podle vytvořeného dotazu a údajů uživatele.
+\newpage
 \begin{lstlisting}[title=Ukázka odpovědi PHP skriptu fileDownload.php,
 label={lst:json}]
 [
@@ -444,12 +450,82 @@ Aktivita \verb+Search+ znázorňující obrazovku se seznamem spotů (\verb+List
 Třída adaptér se využívá jako most mezi \verb+AdapterView+ (v této práci využívám \verb+ListView+) a daty, která dané \verb+View+ zobrazují. Stará se o vytváření jednotlivých položek \verb+View+ v seznamu, dle vlastního rozložení prvků. \cite{adapter}
 \subsubsection{SpotLoadAdapter}
 \label{SpotLoadAdapter}
-Pro vytvoření \verb+ListView+ se seznamem spotů, je vždy potřeba vytvořit instanci třídy \verb+SpotLoadAdapter+. Ta se stará o předání dat a jejich zobrazení v \verb+ListView+.
-
+Pro vytvoření \verb+ListView+ se seznamem spotů, je vždy potřeba vytvořit instanci třídy \verb+SpotLoadAdapter+ s parametry \verb+Activity+ a seznamem spotů (\verb+List<SpotModel>+). Ta se stará o předání dat a jejich zobrazení v \verb+ListView+. Jedna položka v seznamu se skládá ze tří \verb+TextView+ a jednoho \verb+ImageView+, \verb+ImageButtonu+ a \verb+RatingBaru+. Fotky zobrazované v \verb+ImageView+ se stahují ze serveru. Po jejich přidání výkon prohlížení výrazně poklesl, aplikace byla téměř nepoužitelná. Řešení jsem našel v tomto tutoriálu \cite{cache}. Problém byl v tom, že se v paměti udržoval pouze zobrazovaný a při srolování na jiný se musel nejdříve stáhnout. To je velice neefektivní a proto byla vytvořena vyrovnávací paměť\footnote[13]{Pamět sloužící k dočasnému uschování dat.} na SD kartě v adresáři \verb+/mnt/sdcard/spottingCache+. Vše je implementované v následujících třídách:
+\begin{itemize}
+\item \verb+SpotImageLoader+ - Slouží pro stahování obrázků ve vlastním vlákně z URL\footnote[14]{Adresa určující umístění dokumentu na internetu.} adresy, nebo mohou být načteny z vyrovnávací paměti, pokud již byly staženy dříve.
+\item \verb+FileCache+ - Slouží k vytvoření adresáře na SD kartě, získání souboru z adresáře pomocí URL obrázku a také můžeme použít metodu \verb+clear+ pro odstranění všech souborů z adresáře.
+\item \verb+MemoryCache+ - Slouží k nastavení limitu velikosti složky vyrovnávací paměti a také k jejímu vymazání.
+\item \verb+Utils+ - Slouži k překopírování staženého obrázku do paměti metodou \verb+copyStream+.
+\end{itemize}
+\subsubsection{DetailsListViewAdapter}
+Jednoduchý adaptér, které slouží k vytvoření a nastavení dvou \verb+TextView+. Adaptér se nastavuje pro \verb+ListView+ implementovaný v třídě \verb+SpotDetailsDialog+ viz. kapitola \ref{details}.
 \subsection{Dialogy}
-\section{Možná rozšíření}
+Dialog je malé vyskakovací okno, které se nejčastěji využívá ke sdělení nějaké informace uživateli, k nějakému rozhodnutí (souhlas/odmítnutí) či, aby vyčkal na dokončení prováděné úlohy. Android nabízí celou řadu předdefinovaných jednoduchých dialogů. V aplikaci využívám např.
+\begin{itemize}
+\item \verb+ProgressDialog+, který dává uživateli najevo, že aplikace pracuje.
+\item \verb+AlertDialog+, který je jeden z nejpoužívanějších dialogů. Umožňuje zobrazit titulek, až tři tlačítka a nějaký obsah, který může mít vlastní rozvržení.
+\item a další.
+\end{itemize}
+V aplikaci byly potřeba i složitější dialogy. K tomu jsem si vytvořil vlastní dialogy rozšiřující třídu \verb+Dialog+ s definováním vlastního rozvržení. Jedná se o dialog pro změnu hesla, úpravu údajů o spotu, zobrazení informací a další. Následuje popis některých dialogů.
+\subsubsection{ChangePassDialog}
+\verb+ChangePassDialog+ je vlastní dialog využívající se ke změně přihlášeného uživatele do aplikace. Zobrazuje tři \verb+EditTexty+ (pro zadání starého a nového hesla) a dvě tlačítka (pro potvrzení požadavku nebo zavření dialogu). V samotné třídě je implementována komunikace se serverem knihovnou volley v metodě \verb+uploadChangePass+.
+\subsubsection{SpotDetailsDialog}
+\label{details}
+\verb+SpotDetailsDialog+ je dialog zobrazující seznam (\verb+ListView+) nastavený na instanci \verb+DetailsListViewAdapter+ adaptéru. Ten je vytvořen s parametry \verb+Context+ a seznamem \verb+ArrayList+, ve kterém jsou obsažené data pro vypsání. Ty jsou vytvářeny v metodě \verb+createModels+. Samotný dialog tedy zobrazuje veškeré informace o spotu.
+\subsubsection{DialogSpot}
+\verb+DialogSpot+ se zobrazí po kliknutí na kterýkoli nahraný spot ze seznamu spotů uživatelů. Obsahuje čtyři tlačítka:
+\begin{itemize}
+\item pro zobrazení spotu na mapě - tato funkce je implementována v metodě \verb+setMapEvent+.
+\item pro zobrazení informací o spotu - tato funkce je implementována v metodě \verb+setDetailsEvent+.
+\item pro spuštění navigace od uživatelové polohy ke spotu - tato funkce je implementována v metodě \verb+setNavigationEvent+.
+\item pro zavření dialogu - tato funkce je implementována v metodě \verb+setCancelEvent+.
+\end{itemize}
+\subsubsection{DialogEdit}
+\verb+DialogEdit+ se zobrazí po kliknutí na některý spot ze seznamu uživatele nahraných. Slouží k úpravě či změně údajů k danému spotu. Všechna políčka pro úpravu jsou nastavená dle předchozího zadání údajů v konstruktoru voláním metod, jako jsou např. \verb+setNickView+ pro jméno, \verb+setTypeView+ pro typ, \verb+setSurfaceView()+ pro povrch a další. Komunikaci se serverem zprostředkovávaná přes \verb+editSpot.php+ skript je implementovaná v metodě \verb+editUserSpot+ knihovnou volley.
+\subsection{Ostatní třídy}
+V této kapitole se budu zabývat třídami, které nelze dělit dle typu.
+\subsubsection{SpotModel}
+\verb+SpotModel+ je třída implementující rozhraní \verb+Parcelable+. Byla vytvořena jako dotavý nosič. Obsahuje proměnné pro uchování informací o spotu. Využívá se tedy pro sdílení dat mezi aktivitami, kdy nám nestačí primitivní datové typy. Data je možné poslat spouštěnné aktivitě pomocí záměru.
+\begin{lstlisting}[language=Java,
+title=Následujícím kódem použitý v aplikaci se spustí aktivita \lstinline!Search! se seznamem objektů \lstinline!SpotModel!.,
+basicstyle=\ttfamily\small\color{black},
+commentstyle=\itshape,
+keywordstyle=\color{Blue},
+showstringspaces=false,
+frame=lines,
+backgroundcolor=\color{lightGrey}
+]
+Intent i = new Intent(context, Search.class);
+i.putParcelableArrayListExtra(Search.SPOTS_LIST, searchSpots);
+startActivity(i);
+\end{lstlisting}
 
-%http://is.muni.cz/th/374489/fi_b/BakalarskaPraca.pdf
+\begin{lstlisting}[language=Java,
+title=Tímto kódem naopak předaný seznam získáme zpět.,
+basicstyle=\ttfamily\small\color{black},
+commentstyle=\itshape,
+keywordstyle=\color{Blue},
+showstringspaces=false,
+frame=lines,
+backgroundcolor=\color{lightGrey}
+]
+Intent i = this.getIntent();
+spots = i.getParcelableArrayListExtra(SPOTS_LIST);
+\end{lstlisting}
+\subsubsection{Config}
+Třída obsahující řetězcové konstanty URL adres.
+\subsubsection{DetailsModel}
+Třída, která byla vytvořena pro zapouzdření proměnných a metod do jednoho objektu.
+\subsubsection{AppController}
+\verb+AppController+ rozšiřující třídu \verb+Application+. Je to třída, která potřebuje udržet globální stav. Využívá se při práci s knihovnou volley, kdy udržuje základní objekty a frontu požadavků. 
+\cite{volley-singleton}
+\newpage
+\section{Závěr}
+Cílem práce bylo vytvořit aplikaci pro mobilní platformu Android, která umožní uživatelům vyhledání míst pro skateboardery, bikery a bruslaře a následné zveřejnění pomocí služby Google Play.
+
+Jelikož s programováním pro tuto platformu jsem neměl žádné zkušenosti, tak to bylo pro mě velikým přínosem. Za hlavní přínos při tvorbě této práce pokládám nastudování a vyzkoušení nových technologií. Vyzkoušel jsem si některé nástroje z balíčku SDK, seznámil jsem se s vývojem Android aplikací, z jakých sestávají komponent či jejich životního cyklu. V neposlední řadě práci s některými poskytovanými funkcemi jako je např. Google Maps Android API pro práci s mapami, Google Play services location API pro určení polohy a další.
+
+Mezi další náměty pro možné vylepšení aplikace je využití Facebook SDK. To umožní snadnější přihlášení do aplikace přes uživatelův Facebook účet a využití funkce sdílení na sociální síť Facebook. Dále by bylo vhodné obohatit aplikaci o možnost okomentování spotů, přidání dalších prvků pro umožnění snadnějšího vyhledávání na základě pozdějších požadavků uživatelů.
 \newpage
 \begin{thebibliography}{1} %při použití psát \cite{vobecky} apod
 \bibitem{historie} Google Buys Android for Its Mobile Arsenal. In: \emph{Businessweek - Business News, Stock market \& Financial Advice} [online]. 16. 8. 2005 [cit. 2. 4. 2015]. Dostupné
@@ -492,28 +568,16 @@ z: \url{http://www.bloomberg.com/bw/stories/2005-08-16/google-buys-android-for-i
 \bibitem{location} Google Inc. Google Play services location API In: \emph{Android Developers}
 [Online]. 2015 [Citace: 21. 7. 2015]. Dostupné z: \url{http://developer.android.com/training/location/index.html}
 
+\bibitem{cache} Cache In: \emph{ANDROIDHIVE}
+[Online]. 10. 7. 2012 [Citace: 23. 7. 2015]. Dostupné z: \url{http://www.androidhive.info/2012/07/android-loading-image-from-url-http/}
+
+\bibitem{volley-singleton} Google Inc. Volley-Singleton In: \emph{Android Developers}
+[Online]. 2015 [Citace: 24. 7. 2015]. Dostupné z:
+\url{https://developer.android.com/intl/zh-cn/training/volley/requestqueue.html#singleton}
+
+\bibitem{haversine} Haversine formula In: \emph{Wikipedia}
+[Online]. 1. 7. 2015 [Citace: 24. 7. 2015]. Dostupné z:
+\url{https://en.wikipedia.org/wiki/Haversine_formula}
+
 \end{thebibliography}
 \end{document}
-
-\definecolor{lightGrey}{RGB}{250,250,250}
-
-\begin{lstlisting}[language=Java,
-title=Deklarace,
-basicstyle=\ttfamily\small\color{black},
-commentstyle=\itshape,
-keywordstyle=\color{Blue},
-showstringspaces=false,
-frame=lines,
-backgroundcolor=\color{lightGrey},
-numbers=left ,
-numberstyle=\small ,
-stepnumber=5,
-framexleftmargin=10mm,
-xleftmargin=10mm,
-breakindent=20em,
-breakatwhitespace=true ,
-breaklines=true]
-	int i = 100;
-	i++;
-	std::cout << i << std::endl;
-\end{lstlisting}
